@@ -1,25 +1,25 @@
 function minimumBribes(q) {
-  let bribes = 0;
-  
-  for (let i = 0; i < q.length; i++) {
-      const originalPosition = q[i] - 1; // Adjust for 0-based index
-      const currentPosition = i;
+    let bribes = 0;
 
-      // Check if a person has bribed more than two others
-      if (originalPosition - currentPosition > 2) {
-          console.log("Too chaotic");
-          return;
-      }
+    for (let i = 0; i < q.length; i++) {
+        const originalPosition = q[i] - 1; // Adjust for 0-based index
+        const currentPosition = i;
 
-      // Count the number of bribes for this person
-      for (let j = Math.max(0, originalPosition - 1); j < i; j++) {
-          if (q[j] > q[i]) {
-              bribes++;
-          }
-      }
-  }
+        // Check if a person has bribed more than two others
+        if (originalPosition - currentPosition > 2) {
+            console.log("Too chaotic");
+            return;
+        }
 
-  console.log(bribes);
+        // Count the number of bribes for this person
+        for (let j = Math.max(0, originalPosition - 1); j < i; j++) {
+            if (q[j] > q[i]) {
+                bribes++;
+            }
+        }
+    }
+
+    console.log(bribes);
 }
 
 
