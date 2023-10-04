@@ -3,7 +3,7 @@
  * @param {string} s
  * @return {number}
  */
-var romanToInt = function (s) {
+var romanToIntOld = function (s) {
   const ROMAN_NUMBERS = {
     "I": 1,
     "V": 5,
@@ -21,7 +21,7 @@ var romanToInt = function (s) {
   for (let i = 0; i < romans.length; i++) {
     const value = ROMAN_NUMBERS[romans[i]];
     let subTotal = 0;
-    
+
     for (let j = i + 1; j < romans.length; j++) {
       const nextValue = ROMAN_NUMBERS[romans[j]];
       if (nextValue >= value) break;
@@ -31,6 +31,33 @@ var romanToInt = function (s) {
 
     total = (total + value) - subTotal;
 
+  }
+
+  return total;
+
+};
+
+var romanToInt = function (s) {
+  const ROMAN_NUMBERS = {
+    "I": 1,
+    "V": 5,
+    "X": 10,
+    "L": 50,
+    "C": 100,
+    "D": 500,
+    "M": 1000,
+  };
+
+  let total = 0;
+
+
+  for (let i = 0; i < s.length; i++) {
+    const value = ROMAN_NUMBERS[s[i]];
+    const nextValue = ROMAN_NUMBERS[s[i + 1]];
+
+    total = nextValue > value
+      ? total - value
+      : total + value;
   }
 
   return total;
