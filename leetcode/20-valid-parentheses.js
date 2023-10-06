@@ -3,7 +3,7 @@
  * @param {string} s
  * @return {boolean}
  */
-var isValid = function (s) {
+var isValidOld = function (s) {
   const stack = [];
 
   for (let char of s) {
@@ -22,6 +22,24 @@ var isValid = function (s) {
   };
   return s.length > 1 && stack.length == 0;
 };
+
+
+var isValid = function (s) {
+  const stack = [];
+  for (let char of s) {
+    if (char == "(") {
+      stack.push(")");
+    } else if (char == "{") {
+      stack.push("}");
+    } else if (char == "[") {
+      stack.push("]");
+    } else if (stack.length == 0 || stack.pop() != char) {
+      return false
+    }
+  }
+
+  return s.length > 1 && stack.length == 0;
+}
 
 let c = 1;
 
