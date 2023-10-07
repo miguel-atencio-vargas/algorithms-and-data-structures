@@ -16,7 +16,7 @@ class ListNode {
  * @param {ListNode} list2
  * @return {ListNode}
  */
-var mergeTwoLists = function (list1, list2) {
+var mergeTwoListsOld = function (list1, list2) {
   if (!list1 || !list2) return list1 || list2;
 
   let result;
@@ -59,6 +59,27 @@ var mergeTwoLists = function (list1, list2) {
     return newNode;
   }, new ListNode(result.shift(), null));
 };
+
+
+
+
+var mergeTwoLists = (list1, list2) => {
+  // For some reason (maybe the clousures) it is more effiecient  to create the recursive fn inside the main fn
+  var merge = (headA, headB) => {
+    if (headA == null) return headB;
+    if (headB == null) return headA;
+  
+    if (headA.val < headB.val) {
+      headA.next = mergeTwoLists(headA.next, headB);
+      return headA;
+    } else {
+      headB.next = mergeTwoLists(headA, headB.next);
+      return headB;
+    }
+  }
+  merge(list1, list2);
+}
+
 
 // const head1 = null;
 // const head2 = new ListNode(0, null);
