@@ -3,13 +3,18 @@
  * @return {number}
  */
 var mySqrt = function (x) {
+  console.log('⛳️ | mySqrt | x:', x);
   if (x == 0) return 0;
-  
-  for (let i = 1; i <= x; i++) {
-    const pow = (i * i);
-    if (pow === x) return i;
-    if (pow > x) return i - 1;
+
+  let left = 1;
+  let right = x;
+  while (left <= right) {
+    const middle = Math.floor((left + right) / 2);
+    const pow = middle * middle;
+    if (pow <= x) left = middle + 1;
+    else right = middle - 1;
   }
+  return right;
 };
 
 console.log(mySqrt(8))
