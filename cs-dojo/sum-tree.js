@@ -11,12 +11,8 @@ class Node {
  */
 const findSum = (root) => {
   function sum(node) {
-    if (!node.left && !node.right) return node.value;
-    if (!node.left) return sum(node.right) + node.value;
-    if (!node.right) return sum(node.left) + node.value;
-    const leftResult = sum(node.left);
-    const rightResult = sum(node.right);
-    return node.value + leftResult + rightResult
+    if (!node) return 0;
+    return node.value + sum(node.left) + sum(node.right)
   }
   return sum(root);
 };
