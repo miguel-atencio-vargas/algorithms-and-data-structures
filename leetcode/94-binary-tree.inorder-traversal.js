@@ -29,6 +29,28 @@ var inorderTraversal = function (root) {
   return result;
 };
 
+/**
+ * Iterative approach using stack
+ * @param {*} root 
+ */
+var inorderTraversal2 = function (root) {
+  const stack = [];
+  const result = [];
+  let curr = root;
+  while (curr || stack.length) {
+    // go left as possible
+    while (curr) {
+      stack.push(curr);
+      curr = curr.left;
+    }
+    // when current points to null we reached the bottom of the tree,
+    // pop up the top of the stack and add it to the result
+    curr = stack.pop();
+    result.push(curr.val);
+    curr = curr.right; // update current to right node, loops repeat again
+  }
+}
+
 const root = TreeNode(1, null, new TreeNode(2, new TreeNode(3)));
 // [1,3,2]
 console.log('⛳️ ', inorderTraversal(root));
