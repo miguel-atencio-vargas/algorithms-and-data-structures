@@ -15,18 +15,41 @@ function TreeNode(val, left, right) {
  * @param {TreeNode} root
  * @return {number[]}
  */
-var inorderTraversal = function (root) {
-  const result = [];
-  
+var traversal = function (root) {
+  const resultInorder = [];
+  const resultPreorder = [];
+  const resultPostorder = [];
+
   function inorder(node) {
     if (!node) return;
     inorder(node.left);
-    result.push(node.val); // the order its important (left + node + right)
+    resultInorder.push(node.val);
     inorder(node.right);
   }
 
-  inorder(root);
-  return result;
+  function preorder(node) {
+    if (!node) return;
+    resultPreorder.push(node.val);
+    preorder(node.left);
+    preorder(node.right);
+  }
+
+  function postorder(node) {
+    if (!node) return;
+    postorder(node.left);
+    postorder(node.right);
+    resultPostorder.push(node.val);
+  }
+
+  inorder(root);  // [4, 2, 5, 1, 3]
+  preorder(root); // [1, 2, 4, 5, 3]
+  postorder(root); //[4, 5, 2, 3, 1]
+
+
+  console.log('⛳️ | traversal | resultInorder:', resultInorder);
+  console.log('⛳️ | traversal | resultPreorder:', resultPreorder);
+  console.log('⛳️ | traversal | resultPostorder:', resultPostorder);
+
 };
 
 /**
@@ -51,6 +74,5 @@ var inorderTraversal2 = function (root) {
   }
 }
 
-const root = TreeNode(1, null, new TreeNode(2, new TreeNode(3)));
-// [1,3,2]
-console.log('⛳️ ', inorderTraversal(root));
+const root = TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3));
+traversal(root);
