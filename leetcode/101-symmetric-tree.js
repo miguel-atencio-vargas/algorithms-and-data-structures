@@ -13,34 +13,24 @@ class TreeNode {
  * @return {boolean}
  */
 var isSymmetric = function (root) {
-  const left = []
-  const right = []
-  function postorder(node, isRight) {
-    if (!node) {
-      return;
-    };
-    if ((node.left && !node.right) || !node.left && node.right) {
-      left.push(true);
-      right.push(true);
-    }
-    if (isRight) {
-      right.push(node.val);
-      postorder(node.right, true);
-      postorder(node.left, true);
-    } else {
-      left.push(node.val)
-      postorder(node.left);
-      postorder(node.right);
-    }
-  }
-  postorder(root.left, false)
-  postorder(root.right, true)
 
-  console.log('⛳️ | isSymmetric | left:', left);
-  console.log('⛳️ | isSymmetric | right:', right);
-  return JSON.stringify(right) === JSON.stringify(left);
+  function isMirror(a, b) {
+    if ((!a && b) || (a && !b)) return false;
+    if (!a && !b) return true;
+
+
+    return a.val == b.val
+      && isMirror(a?.left, b?.right)
+      && isMirror(a?.right, b?.left);
+  }
+  return isMirror(root.left, root.right);
 
 };
+
+const head = new TreeNode(0,
+  new TreeNode(1, new TreeNode(2), new TreeNode(3)),
+  new TreeNode(1, new TreeNode(3), new TreeNode(2))
+)
 
 const headA = new TreeNode(1,
   new TreeNode(2, new TreeNode(3), new TreeNode(4)),
@@ -54,8 +44,17 @@ const headC = new TreeNode(1,
   new TreeNode(2, null, new TreeNode(3)),
   new TreeNode(2, new TreeNode(3), null)
 );
+const headD = new TreeNode(1)
 
-// console.log(isSymmetric(headA))
-// console.log(isSymmetric(headB))
-console.log(isSymmetric(headC))
+const headE = new TreeNode(9,
+  new TreeNode(-42, null, new TreeNode(76, null, new TreeNode(13))),
+  new TreeNode(-42, new TreeNode(76, null, new TreeNode(13)), null)
+)
+
+console.log(isSymmetric(head)) // true
+console.log(isSymmetric(headA)) // true
+console.log(isSymmetric(headB)) // false
+console.log(isSymmetric(headC)) // true
+console.log(isSymmetric(headD)) // true
+console.log(isSymmetric(headE)) // false
 
